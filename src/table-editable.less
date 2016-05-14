@@ -1,0 +1,57 @@
+﻿
+// tableEditable style
+
+@focusColor: rgb(82, 146, 247);
+
+.editable-click,
+a.editable-click,
+a.editable-click:hover {
+    border: 2px solid transparent;
+}
+
+.editable-click.editable-disabled,
+a.editable-click.editable-disabled,
+a.editable-click.editable-disabled:hover {
+    border-bottom: 2px solid transparent;
+}
+
+a.editable {
+    width: 100%;
+    display: inline-block;
+    border: 2px solid transparent;
+    /*border-bottom: dashed 1px #0088cc;*/
+    &:focus,
+    &:focus:hover,
+    &.editable-open {
+        border: 2px solid @focusColor;
+        outline-color: @focusColor;
+        outline: none;
+    }
+}
+
+
+.editable-container {
+    border-radius: 0;
+
+    .popover-content {
+        padding: 2px 5px;
+    }
+
+    label {
+        display: none;
+    }
+
+    input[type=text] {
+        height: 22px;
+        width: 120px;
+    }
+
+    .editable-buttons,
+    .editable-buttons .editable-cancel {
+        margin-left: 2px;
+    }
+
+    .editable-buttons .btn {
+        padding: 1px 5px;
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>table editable</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link href="src/table-editable.css" rel="stylesheet"/>
+    <link href="demo/demo.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="navbar-default navbar">
+                <div class="navbar-form">
+                    <div class="btn-group">
+                        <a class="btn btn-default" href="?name=test">模板 1</a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-default" href="?name=test2">模板 2</a>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-default" id="btnFetch">换数据</button>
+                        <button id="enable" class="btn btn-default">禁用/启用</button>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    网上随意搜寻的统计表，仅用于 demo 展示
+                </div>
+                <div class="panel-body">
+                    <div id="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/lodash.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/lazyload.js"></script>
+    <script src="assets/js/bootstrap-editable.min.js"></script>
+    <script src="src/table-editable.js"></script>
+    <script src="demo/demo.js"></script>
+
+</body>
+</html>
