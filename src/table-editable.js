@@ -94,58 +94,52 @@
             var $el = $(this.element);
             var that = this;
 
-            var $editableTr = $el.find('tbody').find('tr:visible:has(.editable:visible)');
+           // var $editableTr = $el.find('tbody').find('tr:visible:has(.editable:visible)');
             var $allTr = $el.find('tbody tr:visible');
             that._maxY = $allTr.length - 1;
 
-            $editableTr.each(function () {
-                var $editable = $(this).find('.editable:visible');
-                var y = $allTr.index($(this));
+            var matrix = [];
 
-                $editable.each(function () {
-                    var $td = $(this).closest('td');
-                    var x = null;
+            for (var i = 0; i < $allTr.length; i++) {
 
-                    var matrix = [];
+                matrix[i] = matrix[i] || [];
+                var $row = $($allTr[i]);
+                var cells = $row.children('td, th');
 
-                    for (var i = 0; i < $allTr.length && x === null; i++) {
+                for (var j = 0; j < cells.length; j++) {
+                    var colIndex = null;
+                    var l;
 
-                        matrix[i] = matrix[i] || [];
-                        var $row = $($allTr[i]);
-                        var cells = $row.children('td, th');
+                    var $cell = $(cells[j]);
+                    var colspan = $cell.prop('colspan') || 1;
+                    var rowspan = $cell.prop('rowspan') || 1;
+                    var rowIndex = $row.index();
 
-                        for (var j = 0; j < cells.length && x === null; j++) {
-                            var colIndex = null;
-                            var l;
+                    matrix[rowIndex] = matrix[rowIndex] || [];
 
-                            var $cell = $(cells[j]);
-                            var colspan = $cell.prop('colspan') || 1;
-                            var rowspan = $cell.prop('rowspan') || 1;
-                            var rowIndex = $row.index();
+                    for (l = 0; l <= matrix[rowIndex].length && colIndex === null; l++) {
+                        if (!matrix[rowIndex][l]) colIndex = l;
+                    }
 
-                            matrix[rowIndex] = matrix[rowIndex] || [];
-
-                            for (l = 0; l <= matrix[rowIndex].length && colIndex === null; l++) {
-                                if (!matrix[rowIndex][l]) colIndex = l;
-                            }
-
-                            if ($cell.get(0) === $td.get(0)) { // Short circuit if possible.
-                                x = colIndex;
-                                break;
-                            }
-
-                            for (var k = rowIndex; k < rowIndex + rowspan; k++) {
-                                for (l = colIndex; l < colIndex + colspan; l++) {
-                                    matrix[k] = matrix[k] || [];
-                                    matrix[k][l] = 1;
-                                }
-                            }
+                    for (var k = rowIndex; k < rowIndex + rowspan; k++) {
+                        for (l = colIndex; l < colIndex + colspan; l++) {
+                            matrix[k] = matrix[k] || [];
+                            matrix[k][l] = 1;
                         }
                     }
 
-                    $(this).attr('tabindex', 1).attr('data-x', x).attr('data-y', y);
-                });
-            });
+                    //if ($cell.get(0) === $td.get(0)) { // Short circuit if possible.
+                    //    x = colIndex;
+                    //    break;
+                    //}
+
+                    var $editable = $cell.find('.editable');
+                    if ($editable.length > 0) {
+                        $editable.attr('tabindex', 1).attr('data-x', colIndex).attr('data-y', rowIndex);
+                    }
+
+                }
+            }
 
         },
         _bindEvents: function () {
